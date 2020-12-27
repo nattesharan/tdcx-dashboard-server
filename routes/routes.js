@@ -10,4 +10,10 @@ module.exports = function(app) {
     app.route('/tasks/:id').put(middlewares.isAuthenticated, tasksController.updateTask)
                             .delete(middlewares.isAuthenticated, tasksController.deleteTask)
     app.route('/overview').get(middlewares.isAuthenticated, tasksController.fetchTasksOverView)
+    app.route('/').get(function(req, res) {
+        return res.status(200).json({
+            success: true,
+            message: 'It works !!!'
+        });
+    })
 };
