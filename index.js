@@ -13,7 +13,7 @@ const routes = require('./routes/routes');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost/tdcx-task', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://nattesharan:oKQKkSMGkl6MDSyS@cluster0.kf5o0.mongodb.net/tdcx-task?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.once('open', ()=>{
     console.log("connected to database");
 });
