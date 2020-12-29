@@ -47,13 +47,17 @@ exports.deleteTask = function(req, res) {
     })
 }
 exports.fetchTasks = function(req, res) {
-    console.log(req.query);
     var params = {};
+    var searchActive = false;
     if(req.query.searchTerm && req.query.searchTerm.length) {
         params = {"name" : {$regex : `.*${req.query.searchTerm}.*`}}
+        searchActive = true;
     }
     Task.find(params, {name: 1, is_completed: 1, _id: 1}).sort({ created_at:-1 }).then(function(tasks) {
-        return res.status(200).json(tasks);
+        return res.status(200).json({
+            tasks: tasks,
+            searchActive: searchActive
+        });
     }).catch(function(err) {
         return res.status(500).json({
             'message': 'Error occured while fetching tasks..'
