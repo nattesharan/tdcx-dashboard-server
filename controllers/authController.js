@@ -10,7 +10,18 @@ exports.loginUser = function(req, res) {
         var token = jwt.sign({ username: user.username }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
-        return res.json({ success: true, token: token, 'message': 'Successfully logged in.'});
+        return res.json({ 
+            success: true, 
+            token: token, 
+            message: 'Successfully logged in.',
+            user: {
+                username: user.username,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                avatar: user.avatar
+            }
+        });
     }
     return res.json({success: false, message: 'Please enter valid credentials.'});
 }
